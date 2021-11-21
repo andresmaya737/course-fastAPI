@@ -47,9 +47,12 @@ class Location(BaseModel):
     country:str = Field(...
                 )
 
+
+
 @app.get("/") #path operation decorator
 def home(): #path operation function
     return {"Hello":"world"}
+
 
 #Request and response body
 @app.post("/person")
@@ -94,19 +97,18 @@ def show_person(
 
 
 #Validaciones request body
-
 @app.put("/person/{person_id}")
 def update_person(
-    person_id: int = Path(
-        ...,
-        ge=1,
-        title="Person Id",
-        description="Identificador del usuario",
-        example=117
-    ),
-    person: Person = Body(...),
-    location: Location = Body(...)
-):
+        person_id: int = Path(
+            ...,
+            ge=1,
+            title="Person Id",
+            description="Identificador del usuario",
+            example=117
+        ),
+        person: Person = Body(...),
+        location: Location = Body(...)
+    ):
     result = person.dict()
     result.update(location)
     return result
